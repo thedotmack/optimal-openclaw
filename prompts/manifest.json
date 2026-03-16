@@ -233,7 +233,7 @@
         {
           "file": "workspace/defaults/MEMORY.md",
           "filename": "MEMORY.md",
-          "purpose": "Persistent memory/context index (no template — agent-maintained)"
+          "purpose": "Starter template for agent-maintained persistent memory and context"
         }
       ],
       "dev-variants": [

@@ -148,6 +148,7 @@ DEFAULT_FILES=(
   "HEARTBEAT.md"
   "BOOTSTRAP.md"
   "BOOT.md"
+  "MEMORY.md"
 )
 
 # Dev variant files to sync
