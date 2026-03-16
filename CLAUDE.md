@@ -26,13 +26,13 @@ openclaw gateway restart
 
 ### Prompt Assembly Pipeline
 
-OpenClaw's `buildAgentSystemPrompt()` assembles the system prompt from 22 numbered sections every turn. These are documented in `reference/system-prompt/01-identity.md` through `22-inbound-context.md`. Section numbers define assembly order — preserve them when editing.
+OpenClaw's `buildAgentSystemPrompt()` assembles the system prompt from 25 entries (sections 01--20, 21a--21d, 22) every turn. The canonical section list is in `prompts/manifest.json`. Individual section docs live in `reference/system-prompt/01-identity.md` through `22-inbound-context.md`. Section numbers define assembly order -- preserve them when editing.
 
 `PROMPT-ANATOMY.md` is the master reference for the full pipeline.
 
 ### Directory Layout
 
-- **`reference/system-prompt/`** — 22 numbered sections assembled into the system prompt (read-only documentation). Each file documents one section's content, whether it's hardcoded vs. configurable, and under what conditions it fires.
+- **`reference/system-prompt/`** — 25 system prompt entries assembled every turn (read-only documentation). Each file documents one section's content, whether it's hardcoded vs. configurable, and under what conditions it fires.
 - **`reference/user-messages/`** — Prompts sent as user messages (heartbeat, session reset, post-compaction, memory flush). Read-only documentation.
 - **`reference/config/`** — `openclaw-defaults.json` reference for config-driven prompt behavior.
 - **`reference/skills/`** — XML template format for skill injection.
@@ -53,5 +53,5 @@ Workspace files (`workspace/`) are fully user-editable and sync back via `sync-p
 
 - Keep `manifest.json` synchronized when adding or restructuring prompt files.
 - Workspace files are injected whole every turn — keep them focused and concise to avoid bloating the context window.
-- System prompt section numbering (01–22) reflects assembly order. Don't renumber without understanding downstream dependencies.
+- System prompt section numbering (01--20, 21a--21d, 22) reflects assembly order. Don't renumber without understanding downstream dependencies.
 - Always `--dry-run` before syncing to a live installation.

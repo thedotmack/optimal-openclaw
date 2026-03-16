@@ -11,7 +11,7 @@ OpenClaw is a Node.js-based LLM agent framework that manages AI agent personalit
 | Path | Description |
 |------|-------------|
 | [`PROMPT-ANATOMY.md`](./PROMPT-ANATOMY.md) | Complete map of the system prompt pipeline |
-| [`reference/system-prompt/`](./reference/system-prompt/) | 22 numbered sections assembled into the system prompt (read-only docs) |
+| [`reference/system-prompt/`](./reference/system-prompt/) | 25 system prompt sections (01--20, 21a--21d, 22) assembled every turn ([manifest](./prompts/manifest.json)) |
 | [`reference/user-messages/`](./reference/user-messages/) | Prompts sent as user messages (read-only docs) |
 | [`reference/config/`](./reference/config/) | Default config values affecting prompt behavior |
 | [`reference/skills/`](./reference/skills/) | Skills prompt XML template |
@@ -44,7 +44,7 @@ openclaw gateway restart
 
 [`PROMPT-ANATOMY.md`](./PROMPT-ANATOMY.md) documents the full prompt construction pipeline assembled by `buildAgentSystemPrompt()`. It covers:
 
-1. **System Prompt Builder** — 22 sections assembled every turn, in order (identity, tooling, safety, workspace context, runtime info, etc.)
+1. **System Prompt Builder** — 25 entries (sections 01--20, 21a--21d, 22) assembled every turn, in order (identity, tooling, safety, workspace context, runtime info, etc.)
 2. **Workspace Files** — the Markdown files (`AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`, `MEMORY.md`, etc.) loaded from the workspace directory and injected into every prompt
 3. **Heartbeat System** — periodic background checks sent as user messages on a configurable timer
 4. **Session Reset Prompt** — the message injected on `/new` or `/reset`

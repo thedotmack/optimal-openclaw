@@ -14,33 +14,9 @@ Every single piece of text that gets injected into the system prompt or user mes
 **File:** Main agent runtime bundle (search for `buildAgentSystemPrompt`)
 **Called by:** Session initialization, every API call to the LLM
 
-This is the master function. It assembles the entire system prompt from these sections, in order:
+This is the master function. It assembles the entire system prompt from 25 entries (sections 01--20, 21a--21d, 22), each with its own condition for inclusion. The canonical list of sections, their files, hardcoded status, and firing conditions is maintained in [`prompts/manifest.json`](prompts/manifest.json).
 
-### Section Order (as assembled):
-
-| # | Section Header | Source | Hardcoded? | Notes |
-|---|---------------|--------|-----------|-------|
-| 1 | (Identity line) | `IDENTITY.md` | No | "You are {name}, {description}" — loaded from workspace |
-| 2 | `## Tooling` | Hardcoded + dynamic | Partial | Lists available tools, tool summaries |
-| 3 | `TOOLS.md does not control...` | Hardcoded | Yes | Disclaimer about TOOLS.md |
-| 4 | `## Tool Call Style` | Hardcoded | Yes | "Default: do not narrate routine..." |
-| 5 | `## Safety` | Hardcoded | Yes | Safety rules, human oversight, no self-replication |
-| 6 | (ACP routing guidance) | Hardcoded | Yes | Only if `acpEnabled=true` (default) |
-| 7 | `## Model Aliases` | Config | No | From `modelAliasLines` param |
-| 8 | `## Workspace` | Hardcoded + config | Partial | Working directory path |
-| 9 | `## Documentation` | Hardcoded | Yes | Points to /usr/lib/node_modules/openclaw/docs |
-| 10 | `## Current Date & Time` | Dynamic | Yes | Timezone + current time |
-| 11 | `## Workspace Files (injected)` | Dynamic | No | Header for context files |
-| 12 | (SOUL.md hint) | Conditional | Yes | "If SOUL.md is present, embody its persona..." |
-| 13 | `# Project Context` | Dynamic | No | All workspace files injected here |
-| 14 | `## Silent Replies` | Hardcoded | Yes | NO_REPLY rules |
-| 15 | `## Heartbeats` | Hardcoded + config | Partial | HEARTBEAT_OK rules + heartbeat prompt |
-| 16 | `## Runtime` | Dynamic | Yes | Agent ID, host, OS, model, shell, channel info |
-| 17 | `## Reply Tags` | Hardcoded | Yes | `[[reply_to_current]]` etc. |
-| 18 | `## Messaging` | Hardcoded | Yes | Message routing rules |
-| 19 | `## Group Chat Context` | Conditional | No | Only in group chats |
-| 20 | `## Inbound Context` | Dynamic | No | Trusted metadata JSON about current message |
-| 21 | `## Reactions` | Conditional | No | Only if reaction guidance configured |
+> **To view the full section table:** open `prompts/manifest.json` or run `./generate-docs.sh` (requires `jq`).
 
 ---
 

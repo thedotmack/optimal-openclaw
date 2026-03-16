@@ -92,35 +92,9 @@ A machine-readable index of every prompt file with metadata about its source, co
 
 ## Prompt Assembly Order
 
-The system prompt is assembled by `buildAgentSystemPrompt()` in this order:
+The system prompt is assembled by `buildAgentSystemPrompt()` from 25 entries (sections 01--20, 21a--21d, 22). The canonical section list -- including file paths, hardcoded status, and firing conditions -- lives in [`manifest.json`](manifest.json).
 
-| # | Section | File |
-|---|---------|------|
-| 1 | Identity Line | `01-identity.md` |
-| 2 | Tooling | `02-tooling.md` |
-| 3 | Tool Call Style | `03-tool-call-style.md` |
-| 4 | Safety | `04-safety.md` |
-| 5 | CLI Quick Reference | `05-cli-quick-reference.md` |
-| 6 | Skills | `06-skills.md` |
-| 7 | Memory Recall | `07-memory-recall.md` |
-| 8 | Self-Update | `08-self-update.md` |
-| 9 | Model Aliases | `09-model-aliases.md` |
-| 10 | Current Date & Time | `10-current-datetime.md` |
-| 11 | Workspace | `11-workspace.md` |
-| 12 | Documentation | `12-documentation.md` |
-| 13 | Sandbox | `13-sandbox.md` |
-| 14 | Authorized Senders | `14-authorized-senders.md` |
-| 15 | Workspace Files + Project Context | `15-workspace-files-and-project-context.md` |
-| 16 | Silent Replies | `16-silent-replies.md` |
-| 17 | Heartbeats | `17-heartbeats.md` |
-| 18 | Runtime | `18-runtime.md` |
-| 19 | Reply Tags | `19-reply-tags.md` |
-| 20 | Messaging | `20-messaging.md` |
-| 21a | Voice (TTS) | `21a-voice-tts.md` |
-| 21b | Group Chat / Subagent Context | `21b-group-chat-context.md` |
-| 21c | Reactions | `21c-reactions.md` |
-| 21d | Reasoning Format | `21d-reasoning-format.md` |
-| 22 | Inbound Context | `22-inbound-context.md` |
+> **To view the full section table:** open `manifest.json` or run `./generate-docs.sh` from the repo root (requires `jq`).
 
 ## User-Message Prompts
 
