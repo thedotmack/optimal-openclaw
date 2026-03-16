@@ -6,7 +6,7 @@
 #   ./sync-prompts.sh [--dry-run] [--diff] [--restore] [--openclaw-path /path/to/openclaw]
 #
 # This script copies edited workspace template files from this repo's
-# prompts/workspace-files/defaults/ directory back to the OpenClaw package's
+# workspace/defaults/ directory back to the OpenClaw package's
 # docs/reference/templates/ directory.
 #
 # Options:
@@ -19,7 +19,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROMPTS_DIR="$SCRIPT_DIR/prompts"
+WORKSPACE_DIR="$SCRIPT_DIR/workspace"
 DRY_RUN=false
 DIFF_ONLY=false
 RESTORE=false
@@ -130,7 +130,7 @@ fi
 
 echo "OpenClaw path:   $OPENCLAW_PATH"
 echo "Templates dir:   $TEMPLATES_DIR"
-echo "Prompts source:  $PROMPTS_DIR"
+echo "Workspace source: $WORKSPACE_DIR"
 if [[ "$DIFF_ONLY" == "true" ]]; then
   echo "Mode:            diff"
 else
@@ -242,13 +242,13 @@ sync_file() {
 if [[ "$DIFF_ONLY" == "true" ]]; then
   echo "--- Default workspace files ---"
   for file in "${DEFAULT_FILES[@]}"; do
-    diff_file "$PROMPTS_DIR/workspace-files/defaults/$file" "$TEMPLATES_DIR/$file" "defaults/$file"
+    diff_file "$WORKSPACE_DIR/defaults/$file" "$TEMPLATES_DIR/$file" "defaults/$file"
   done
 
   echo ""
   echo "--- Dev variant files ---"
   for file in "${DEV_FILES[@]}"; do
-    diff_file "$PROMPTS_DIR/workspace-files/dev-variants/$file" "$TEMPLATES_DIR/$file" "dev-variants/$file"
+    diff_file "$WORKSPACE_DIR/dev-variants/$file" "$TEMPLATES_DIR/$file" "dev-variants/$file"
   done
 
   echo ""
@@ -263,18 +263,19 @@ fi
 # --- Normal sync ---
 echo "--- Default workspace files ---"
 for file in "${DEFAULT_FILES[@]}"; do
-  sync_file "$PROMPTS_DIR/workspace-files/defaults/$file" "$TEMPLATES_DIR/$file" "defaults/$file"
+  sync_file "$WORKSPACE_DIR/defaults/$file" "$TEMPLATES_DIR/$file" "defaults/$file"
 done
 
 echo ""
 echo "--- Dev variant files ---"
 for file in "${DEV_FILES[@]}"; do
-  sync_file "$PROMPTS_DIR/workspace-files/dev-variants/$file" "$TEMPLATES_DIR/$file" "dev-variants/$file"
+  sync_file "$WORKSPACE_DIR/dev-variants/$file" "$TEMPLATES_DIR/$file" "dev-variants/$file"
 done
 
 echo ""
 echo "--- Config defaults ---"
-if [[ -f "$PROMPTS_DIR/config/openclaw-defaults.json" ]]; then
+REFERENCE_DIR="$SCRIPT_DIR/reference"
+if [[ -f "$REFERENCE_DIR/config/openclaw-defaults.json" ]]; then
   echo "  INFO  config/openclaw-defaults.json is a reference file."
   echo "        To apply config changes, edit ~/.openclaw/openclaw.json directly"
   echo "        or use: openclaw config apply"

@@ -26,19 +26,19 @@ openclaw gateway restart
 
 ### Prompt Assembly Pipeline
 
-OpenClaw's `buildAgentSystemPrompt()` assembles the system prompt from 22 numbered sections every turn. These are documented in `prompts/system-prompt/01-identity.md` through `22-inbound-context.md`. Section numbers define assembly order — preserve them when editing.
+OpenClaw's `buildAgentSystemPrompt()` assembles the system prompt from 22 numbered sections every turn. These are documented in `reference/system-prompt/01-identity.md` through `22-inbound-context.md`. Section numbers define assembly order — preserve them when editing.
 
 `PROMPT-ANATOMY.md` is the master reference for the full pipeline.
 
 ### Directory Layout
 
-- **`prompts/system-prompt/`** — 22 numbered sections assembled into the system prompt. Each file documents one section's content, whether it's hardcoded vs. configurable, and under what conditions it fires.
-- **`prompts/workspace-files/defaults/`** — Template workspace files (AGENTS.md, SOUL.md, IDENTITY.md, USER.md, etc.) that get injected whole into the system prompt every turn. These are the primary files users customize.
-- **`prompts/workspace-files/dev-variants/`** — Dev agent (C-3PO) variants of workspace files.
-- **`prompts/user-messages/`** — Prompts sent as user messages (heartbeat, session reset, post-compaction, memory flush). Not part of the system prompt.
-- **`prompts/config/`** — `openclaw-defaults.json` reference for config-driven prompt behavior.
-- **`prompts/skills/`** — XML template format for skill injection.
-- **`prompts/manifest.json`** — Machine-readable index of all prompts with metadata (conditions, configurability, triggers).
+- **`reference/system-prompt/`** — 22 numbered sections assembled into the system prompt (read-only documentation). Each file documents one section's content, whether it's hardcoded vs. configurable, and under what conditions it fires.
+- **`reference/user-messages/`** — Prompts sent as user messages (heartbeat, session reset, post-compaction, memory flush). Read-only documentation.
+- **`reference/config/`** — `openclaw-defaults.json` reference for config-driven prompt behavior.
+- **`reference/skills/`** — XML template format for skill injection.
+- **`workspace/defaults/`** — Template workspace files (AGENTS.md, SOUL.md, IDENTITY.md, USER.md, etc.) that get injected whole into the system prompt every turn. These are the primary files users customize and sync back via `sync-prompts.sh`.
+- **`workspace/dev-variants/`** — Dev agent (C-3PO) variants of workspace files.
+- **`prompts/manifest.json`** — Machine-readable index of all prompts with metadata (conditions, configurability, triggers). Indexes both `reference/` and `workspace/`.
 
 ### Hardcoded vs. Configurable vs. Dynamic
 
@@ -47,7 +47,7 @@ Each system prompt section in `manifest.json` has a `hardcoded` field:
 - `false` — Fully user-configurable (e.g., `extraSystemPrompt`)
 - `"partial"` — Template with dynamic values filled at runtime (e.g., tool lists, model names, timestamps)
 
-Workspace files (`prompts/workspace-files/`) are fully user-editable and sync back via `sync-prompts.sh`.
+Workspace files (`workspace/`) are fully user-editable and sync back via `sync-prompts.sh`.
 
 ## Editing Guidelines
 

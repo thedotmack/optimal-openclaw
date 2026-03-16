@@ -7,6 +7,9 @@ Every prompt, hardcoded string, and configurable text from the [OpenClaw](https:
 ```
 prompts/
 ├── manifest.json                                    # Index of all prompts with metadata
+└── README.md                                        # This file
+
+reference/                                           # Read-only documentation (not syncable)
 ├── system-prompt/                                   # System prompt sections (assembled every turn)
 │   ├── 01-identity.md                               # Identity line
 │   ├── 02-tooling.md                                # Tool availability + summaries
@@ -38,28 +41,29 @@ prompts/
 │   ├── session-reset-prompt.md                      # BARE_SESSION_RESET_PROMPT
 │   ├── post-compaction-refresh.md                   # Post-compaction context
 │   └── memory-flush-prompts.md                      # Memory flush prompts
-├── workspace-files/                                 # Workspace file templates
-│   ├── README.md                                    # Overview of workspace files
-│   ├── defaults/                                    # Default templates
-│   │   ├── AGENTS.md                                # Agent config + session rules
-│   │   ├── SOUL.md                                  # Persona + personality
-│   │   ├── TOOLS.md                                 # User tool notes
-│   │   ├── IDENTITY.md                              # Agent identity
-│   │   ├── USER.md                                  # User profile
-│   │   ├── HEARTBEAT.md                             # Heartbeat tasks
-│   │   ├── BOOTSTRAP.md                             # First-run onboarding
-│   │   ├── BOOT.md                                  # Startup hook
-│   │   └── MEMORY.md                                # Memory index (placeholder)
-│   └── dev-variants/                                # Dev agent (C-3PO) templates
-│       ├── AGENTS.dev.md
-│       ├── SOUL.dev.md
-│       ├── TOOLS.dev.md
-│       ├── IDENTITY.dev.md
-│       └── USER.dev.md
 ├── skills/                                          # Skills prompt format
 │   └── skills-prompt-template.md                    # XML format + built-in skills list
 └── config/                                          # Config-driven prompt settings
     └── openclaw-defaults.json                       # Default config values
+
+workspace/                                           # Editable templates (synced via sync-prompts.sh)
+├── README.md                                        # Overview of workspace files
+├── defaults/                                        # Default templates
+│   ├── AGENTS.md                                    # Agent config + session rules
+│   ├── SOUL.md                                      # Persona + personality
+│   ├── TOOLS.md                                     # User tool notes
+│   ├── IDENTITY.md                                  # Agent identity
+│   ├── USER.md                                      # User profile
+│   ├── HEARTBEAT.md                                 # Heartbeat tasks
+│   ├── BOOTSTRAP.md                                 # First-run onboarding
+│   ├── BOOT.md                                      # Startup hook
+│   └── MEMORY.md                                    # Memory index (placeholder)
+└── dev-variants/                                    # Dev agent (C-3PO) templates
+    ├── AGENTS.dev.md
+    ├── SOUL.dev.md
+    ├── TOOLS.dev.md
+    ├── IDENTITY.dev.md
+    └── USER.dev.md
 ```
 
 ## How to Use
@@ -76,9 +80,11 @@ Each file contains the **actual prompt text** extracted from the OpenClaw source
 
 ### Editing Prompts
 
-1. Edit any file in this directory
+1. Edit workspace template files in `workspace/defaults/` or `workspace/dev-variants/`
 2. Run `./sync-prompts.sh` to sync changes back to your OpenClaw installation
 3. Restart OpenClaw to pick up changes
+
+**Note:** Files in `reference/` are read-only documentation of hardcoded/dynamic prompt sections. Only `workspace/` files are syncable.
 
 ### What's in `manifest.json`
 

@@ -11,11 +11,12 @@ OpenClaw is a Node.js-based LLM agent framework that manages AI agent personalit
 | Path | Description |
 |------|-------------|
 | [`PROMPT-ANATOMY.md`](./PROMPT-ANATOMY.md) | Complete map of the system prompt pipeline |
-| [`prompts/system-prompt/`](./prompts/system-prompt/) | 22 numbered sections assembled into the system prompt every turn |
-| [`prompts/workspace-files/`](./prompts/workspace-files/) | Editable workspace templates (AGENTS.md, SOUL.md, IDENTITY.md, etc.) |
-| [`prompts/user-messages/`](./prompts/user-messages/) | Prompts sent as user messages (heartbeat, session reset, memory flush) |
-| [`prompts/config/`](./prompts/config/) | Default config values affecting prompt behavior |
-| [`prompts/skills/`](./prompts/skills/) | Skills prompt XML template |
+| [`reference/system-prompt/`](./reference/system-prompt/) | 22 numbered sections assembled into the system prompt (read-only docs) |
+| [`reference/user-messages/`](./reference/user-messages/) | Prompts sent as user messages (read-only docs) |
+| [`reference/config/`](./reference/config/) | Default config values affecting prompt behavior |
+| [`reference/skills/`](./reference/skills/) | Skills prompt XML template |
+| [`workspace/defaults/`](./workspace/defaults/) | Editable workspace templates (AGENTS.md, SOUL.md, IDENTITY.md, etc.) |
+| [`workspace/dev-variants/`](./workspace/dev-variants/) | Dev agent (C-3PO) workspace templates |
 | [`prompts/manifest.json`](./prompts/manifest.json) | Machine-readable index of all prompts with metadata |
 | [`sync-prompts.sh`](./sync-prompts.sh) | Sync edited templates back to an OpenClaw installation |
 
@@ -23,7 +24,7 @@ See [`prompts/README.md`](./prompts/README.md) for detailed descriptions of ever
 
 ## Syncing Changes to OpenClaw
 
-Edit workspace templates in `prompts/workspace-files/`, then sync them back to your OpenClaw installation:
+Edit workspace templates in `workspace/defaults/`, then sync them back to your OpenClaw installation:
 
 ```bash
 # Preview what would change
