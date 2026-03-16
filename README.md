@@ -8,15 +8,42 @@ OpenClaw is a Node.js-based LLM agent framework that manages AI agent personalit
 
 ## What's in This Repo
 
-| File | Description |
+| Path | Description |
 |------|-------------|
-| [`PROMPT-ANATOMY.md`](./PROMPT-ANATOMY.md) | Complete map of the OpenClaw system prompt pipeline |
+| [`PROMPT-ANATOMY.md`](./PROMPT-ANATOMY.md) | Complete map of the system prompt pipeline |
+| [`prompts/system-prompt/`](./prompts/system-prompt/) | 22 numbered sections assembled into the system prompt every turn |
+| [`prompts/workspace-files/`](./prompts/workspace-files/) | Editable workspace templates (AGENTS.md, SOUL.md, IDENTITY.md, etc.) |
+| [`prompts/user-messages/`](./prompts/user-messages/) | Prompts sent as user messages (heartbeat, session reset, memory flush) |
+| [`prompts/config/`](./prompts/config/) | Default config values affecting prompt behavior |
+| [`prompts/skills/`](./prompts/skills/) | Skills prompt XML template |
+| [`prompts/manifest.json`](./prompts/manifest.json) | Machine-readable index of all prompts with metadata |
+| [`sync-prompts.sh`](./sync-prompts.sh) | Sync edited templates back to an OpenClaw installation |
+
+See [`prompts/README.md`](./prompts/README.md) for detailed descriptions of every file.
+
+## Syncing Changes to OpenClaw
+
+Edit workspace templates in `prompts/workspace-files/`, then sync them back to your OpenClaw installation:
+
+```bash
+# Preview what would change
+./sync-prompts.sh --dry-run
+
+# Sync workspace files to OpenClaw
+./sync-prompts.sh
+
+# Target a specific installation
+./sync-prompts.sh --openclaw-path /path/to/openclaw
+
+# Restart to pick up changes
+openclaw gateway restart
+```
 
 ## Prompt Anatomy Overview
 
 [`PROMPT-ANATOMY.md`](./PROMPT-ANATOMY.md) documents the full prompt construction pipeline assembled by `buildAgentSystemPrompt()`. It covers:
 
-1. **System Prompt Builder** — the 21 sections assembled every turn, in order (identity, tooling, safety, workspace context, runtime info, etc.)
+1. **System Prompt Builder** — 22 sections assembled every turn, in order (identity, tooling, safety, workspace context, runtime info, etc.)
 2. **Workspace Files** — the Markdown files (`AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`, `MEMORY.md`, etc.) loaded from the workspace directory and injected into every prompt
 3. **Heartbeat System** — periodic background checks sent as user messages on a configurable timer
 4. **Session Reset Prompt** — the message injected on `/new` or `/reset`
