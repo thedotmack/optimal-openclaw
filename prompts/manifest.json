@@ -1,0 +1,281 @@
+{
+  "_comment": "Index of all prompts in the OpenClaw system, organized by injection point",
+  "version": "1.0.0",
+  "openclaw_version": "2026.3.13",
+  "categories": {
+    "system-prompt": {
+      "description": "Sections assembled by buildAgentSystemPrompt() into the system prompt every turn",
+      "files": [
+        {
+          "file": "system-prompt/01-identity.md",
+          "section": "Identity Line",
+          "hardcoded": true,
+          "condition": "always"
+        },
+        {
+          "file": "system-prompt/02-tooling.md",
+          "section": "Tooling",
+          "hardcoded": "partial",
+          "condition": "always"
+        },
+        {
+          "file": "system-prompt/03-tool-call-style.md",
+          "section": "Tool Call Style",
+          "hardcoded": true,
+          "condition": "always"
+        },
+        {
+          "file": "system-prompt/04-safety.md",
+          "section": "Safety",
+          "hardcoded": true,
+          "condition": "always"
+        },
+        {
+          "file": "system-prompt/05-cli-quick-reference.md",
+          "section": "OpenClaw CLI Quick Reference",
+          "hardcoded": true,
+          "condition": "always"
+        },
+        {
+          "file": "system-prompt/06-skills.md",
+          "section": "Skills (mandatory)",
+          "hardcoded": "partial",
+          "condition": "skills available"
+        },
+        {
+          "file": "system-prompt/07-memory-recall.md",
+          "section": "Memory Recall",
+          "hardcoded": true,
+          "condition": "memory tools available"
+        },
+        {
+          "file": "system-prompt/08-self-update.md",
+          "section": "OpenClaw Self-Update",
+          "hardcoded": true,
+          "condition": "gateway tool available and not minimal"
+        },
+        {
+          "file": "system-prompt/09-model-aliases.md",
+          "section": "Model Aliases",
+          "hardcoded": "partial",
+          "condition": "model aliases configured and not minimal"
+        },
+        {
+          "file": "system-prompt/10-current-datetime.md",
+          "section": "Current Date & Time",
+          "hardcoded": "partial",
+          "condition": "user timezone configured"
+        },
+        {
+          "file": "system-prompt/11-workspace.md",
+          "section": "Workspace",
+          "hardcoded": "partial",
+          "condition": "always"
+        },
+        {
+          "file": "system-prompt/12-documentation.md",
+          "section": "Documentation",
+          "hardcoded": "partial",
+          "condition": "docs path set and not minimal"
+        },
+        {
+          "file": "system-prompt/13-sandbox.md",
+          "section": "Sandbox",
+          "hardcoded": "partial",
+          "condition": "sandbox enabled"
+        },
+        {
+          "file": "system-prompt/14-authorized-senders.md",
+          "section": "Authorized Senders",
+          "hardcoded": "partial",
+          "condition": "owner numbers provided and not minimal"
+        },
+        {
+          "file": "system-prompt/15-workspace-files-and-project-context.md",
+          "section": "Workspace Files / Project Context",
+          "hardcoded": "partial",
+          "condition": "always (header); context files present (body)"
+        },
+        {
+          "file": "system-prompt/16-silent-replies.md",
+          "section": "Silent Replies",
+          "hardcoded": true,
+          "condition": "not minimal"
+        },
+        {
+          "file": "system-prompt/17-heartbeats.md",
+          "section": "Heartbeats",
+          "hardcoded": "partial",
+          "condition": "not minimal"
+        },
+        {
+          "file": "system-prompt/18-runtime.md",
+          "section": "Runtime",
+          "hardcoded": "partial",
+          "condition": "always"
+        },
+        {
+          "file": "system-prompt/19-reply-tags.md",
+          "section": "Reply Tags",
+          "hardcoded": true,
+          "condition": "not minimal"
+        },
+        {
+          "file": "system-prompt/20-messaging.md",
+          "section": "Messaging",
+          "hardcoded": "partial",
+          "condition": "not minimal"
+        },
+        {
+          "file": "system-prompt/21a-voice-tts.md",
+          "section": "Voice (TTS)",
+          "hardcoded": "partial",
+          "condition": "TTS hint configured and not minimal"
+        },
+        {
+          "file": "system-prompt/21b-group-chat-context.md",
+          "section": "Group Chat Context / Subagent Context",
+          "hardcoded": false,
+          "condition": "extraSystemPrompt provided"
+        },
+        {
+          "file": "system-prompt/21c-reactions.md",
+          "section": "Reactions",
+          "hardcoded": "partial",
+          "condition": "reaction guidance configured"
+        },
+        {
+          "file": "system-prompt/21d-reasoning-format.md",
+          "section": "Reasoning Format",
+          "hardcoded": true,
+          "condition": "reasoning tag hint enabled"
+        },
+        {
+          "file": "system-prompt/22-inbound-context.md",
+          "section": "Inbound Context (trusted + untrusted metadata)",
+          "hardcoded": "partial",
+          "condition": "per-message context available"
+        }
+      ]
+    },
+    "user-messages": {
+      "description": "Prompts sent as user messages (not in system prompt)",
+      "files": [
+        {
+          "file": "user-messages/heartbeat-prompt.md",
+          "constant": "HEARTBEAT_PROMPT",
+          "trigger": "heartbeat timer",
+          "configurable": "agents.defaults.heartbeat.prompt"
+        },
+        {
+          "file": "user-messages/session-reset-prompt.md",
+          "constant": "BARE_SESSION_RESET_PROMPT_BASE",
+          "trigger": "/new or /reset commands",
+          "configurable": false
+        },
+        {
+          "file": "user-messages/post-compaction-refresh.md",
+          "function": "readPostCompactionContext()",
+          "trigger": "session compaction",
+          "configurable": "agents.defaults.compaction.postCompactionSections"
+        },
+        {
+          "file": "user-messages/memory-flush-prompts.md",
+          "constants": ["DEFAULT_MEMORY_FLUSH_PROMPT", "DEFAULT_MEMORY_FLUSH_SYSTEM_PROMPT"],
+          "trigger": "transcript exceeds soft/hard threshold",
+          "configurable": "agents.defaults.memoryFlush.*"
+        }
+      ]
+    },
+    "workspace-files": {
+      "description": "Template files loaded from workspace directory and injected into system prompt",
+      "defaults": [
+        {
+          "file": "workspace-files/defaults/AGENTS.md",
+          "filename": "AGENTS.md",
+          "purpose": "Agent configuration, session startup, memory system, group chat behavior"
+        },
+        {
+          "file": "workspace-files/defaults/SOUL.md",
+          "filename": "SOUL.md",
+          "purpose": "Persona, tone, worldview, personality"
+        },
+        {
+          "file": "workspace-files/defaults/TOOLS.md",
+          "filename": "TOOLS.md",
+          "purpose": "User-specific tool notes"
+        },
+        {
+          "file": "workspace-files/defaults/IDENTITY.md",
+          "filename": "IDENTITY.md",
+          "purpose": "Agent name, creature type, vibe, emoji"
+        },
+        {
+          "file": "workspace-files/defaults/USER.md",
+          "filename": "USER.md",
+          "purpose": "User info (name, pronouns, timezone)"
+        },
+        {
+          "file": "workspace-files/defaults/HEARTBEAT.md",
+          "filename": "HEARTBEAT.md",
+          "purpose": "Heartbeat task instructions"
+        },
+        {
+          "file": "workspace-files/defaults/BOOTSTRAP.md",
+          "filename": "BOOTSTRAP.md",
+          "purpose": "First-run onboarding script"
+        },
+        {
+          "file": "workspace-files/defaults/BOOT.md",
+          "filename": "BOOT.md",
+          "purpose": "Startup hook instructions"
+        },
+        {
+          "file": "workspace-files/defaults/MEMORY.md",
+          "filename": "MEMORY.md",
+          "purpose": "Persistent memory/context index (no template — agent-maintained)"
+        }
+      ],
+      "dev-variants": [
+        {
+          "file": "workspace-files/dev-variants/AGENTS.dev.md",
+          "purpose": "Dev agent (C-3PO) workspace config"
+        },
+        {
+          "file": "workspace-files/dev-variants/SOUL.dev.md",
+          "purpose": "Dev agent (C-3PO) soul"
+        },
+        {
+          "file": "workspace-files/dev-variants/TOOLS.dev.md",
+          "purpose": "Dev agent tool notes"
+        },
+        {
+          "file": "workspace-files/dev-variants/IDENTITY.dev.md",
+          "purpose": "Dev agent (C-3PO) identity"
+        },
+        {
+          "file": "workspace-files/dev-variants/USER.dev.md",
+          "purpose": "Clawdributors user profile"
+        }
+      ]
+    },
+    "skills": {
+      "description": "Skills prompt template and available skills list",
+      "files": [
+        {
+          "file": "skills/skills-prompt-template.md",
+          "purpose": "XML format for injecting available skills into system prompt"
+        }
+      ]
+    },
+    "config": {
+      "description": "Config-driven prompt settings from openclaw.json",
+      "files": [
+        {
+          "file": "config/openclaw-defaults.json",
+          "purpose": "Default config values affecting prompt behavior"
+        }
+      ]
+    }
+  }
+}
