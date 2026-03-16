@@ -97,7 +97,7 @@ openclaw gateway restart
 
 | Path | Effect |
 |------|--------|
-| `agents.defaults.heartbeat.every` | Heartbeat interval (e.g. `"20m"`) |
+| `agents.defaults.heartbeat.every` | Heartbeat interval (e.g. `"30m"`) |
 | `agents.defaults.heartbeat.prompt` | Custom heartbeat prompt override |
 | `agents.defaults.model` | Default LLM model |
 | `agents.defaults.extraSystemPrompt` | Additional text injected into system prompt |
@@ -107,15 +107,26 @@ openclaw gateway restart
 
 ## Source Locations
 
-OpenClaw runs as a Node.js package. The source files referenced throughout the docs are:
+OpenClaw runs as a Node.js package. The key functions and modules are:
 
-| File | Purpose |
-|------|---------|
-| `dist/pi-embedded-Cf0EGRq3.js` | Main agent runtime (`buildAgentSystemPrompt()`, `HEARTBEAT_PROMPT`) |
-| `dist/agent-scope-XRTwmJgy.js` | Workspace file loader (`loadWorkspaceBootstrapFiles()`) |
-| `dist/heartbeat-visibility-_K4bnQDH.js` | Heartbeat channel visibility logic |
-| `/usr/lib/node_modules/openclaw/docs` | Built-in documentation referenced in system prompt |
-| `/usr/lib/node_modules/openclaw/skills/` | Built-in skills directory |
+| Function / Constant | Module | Purpose |
+|---------------------|--------|---------|
+| `buildAgentSystemPrompt()` | Main agent runtime bundle | Assembles the full system prompt every turn |
+| `HEARTBEAT_PROMPT` | Main agent runtime bundle | Heartbeat user-message constant |
+| `loadWorkspaceBootstrapFiles()` | Agent scope module | Loads workspace Markdown files into context |
+| (heartbeat visibility logic) | Heartbeat visibility module | Heartbeat channel visibility / suppression |
+| `/usr/lib/node_modules/openclaw/docs` | — | Built-in documentation referenced in system prompt |
+| `/usr/lib/node_modules/openclaw/skills/` | — | Built-in skills directory |
+
+## Finding These in OpenClaw Source
+
+OpenClaw bundles are minified with hash suffixes that change each build. To find the relevant code in any installation:
+
+```bash
+grep -r "buildAgentSystemPrompt" /path/to/openclaw/
+grep -r "loadWorkspaceBootstrapFiles" /path/to/openclaw/
+grep -r "HEARTBEAT_PROMPT" /path/to/openclaw/
+```
 
 ## License
 

@@ -11,7 +11,7 @@ Every single piece of text that gets injected into the system prompt or user mes
 ## 1. System Prompt Builder
 
 **Function:** `buildAgentSystemPrompt()` 
-**File:** `dist/pi-embedded-Cf0EGRq3.js` (line ~23983)
+**File:** Main agent runtime bundle (search for `buildAgentSystemPrompt`)
 **Called by:** Session initialization, every API call to the LLM
 
 This is the master function. It assembles the entire system prompt from these sections, in order:
@@ -47,7 +47,7 @@ This is the master function. It assembles the entire system prompt from these se
 ## 2. Workspace Files (Context Injection)
 
 **Loader function:** `loadWorkspaceBootstrapFiles()`
-**File:** `dist/agent-scope-XRTwmJgy.js` (line ~1369)
+**File:** Agent scope module (search for `loadWorkspaceBootstrapFiles`)
 **Max file size:** 2MB per file (`MAX_WORKSPACE_BOOTSTRAP_FILE_BYTES`)
 
 These files are loaded from the workspace directory and injected into `# Project Context`:
@@ -72,11 +72,11 @@ These files are loaded from the workspace directory and injected into `# Project
 
 ### Config
 **Location:** `openclaw.json` → `agents.defaults.heartbeat.every`
-**Current value:** `"20m"` (needs to be `"10m"`)
+**Current value:** `"30m"`
 **Resolver:** `resolveHeartbeatIntervalMs()` in `heartbeat-runner.d.ts`
 
 ### Heartbeat Prompt (what gets sent as a user message)
-**Constant:** `HEARTBEAT_PROMPT` (line 112 of pi-embedded)
+**Constant:** `HEARTBEAT_PROMPT` (in main agent runtime bundle — search for `HEARTBEAT_PROMPT`)
 **Value:** 
 ```
 Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
@@ -91,7 +91,7 @@ Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not i
 6. If reply does NOT contain `HEARTBEAT_OK`, it's delivered as a message to the user
 
 ### Heartbeat Visibility
-**File:** `dist/heartbeat-visibility-_K4bnQDH.js`
+**File:** Heartbeat visibility module (search for `heartbeat`)
 **Config:** `channels.defaults.heartbeat` and per-channel `heartbeat` settings
 **Controls:** Whether heartbeat results are visible or suppressed per channel
 
